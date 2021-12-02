@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joivanau <joivanau@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: joivanau <joivanau@hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:05:24 by joivanau          #+#    #+#             */
-/*   Updated: 2021/12/01 18:06:13 by joivanau         ###   ########.fr       */
+/*   Updated: 2021/12/02 21:06:32 by joivanau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "libft/libft.h"
-# define BUFF_SIZE 32
+# define BUFF_SIZE 1000
 # define MAX_FD 8192
 
 int	get_next_line(const int fd, char **line);

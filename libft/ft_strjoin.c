@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joivanau <joivanau@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: joivanau <joivanau@hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:33:50 by joivanau          #+#    #+#             */
-/*   Updated: 2021/11/29 16:59:03 by joivanau         ###   ########.fr       */
+/*   Updated: 2021/12/02 20:48:49 by joivanau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,18 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	int		i;
-	int		k;
+	char		*str;
+	size_t		s1_len;
+	size_t		s2_len;
 
 	if (!s1 || !s2)
 		return (NULL);
-	i = 0;
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
 	str = (char *) malloc(sizeof(char *) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
-	while (s1[i] != '\0')
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	k = ft_strlen(s2);
-	while (k > 0)
-	{
-		str[i] = s2[ft_strlen(s2) - k];
-		i++;
-		k--;
-	}
-	str[i] = '\0';
+	ft_strlcpy(str, s1, s1_len + 1);
+	ft_strlcat(str + (s1_len), s2, s2_len + 1);
 	return (str);
 }

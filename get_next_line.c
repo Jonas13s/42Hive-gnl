@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joivanau <joivanau@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: joivanau <joivanau@hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:05:39 by joivanau          #+#    #+#             */
-/*   Updated: 2021/12/01 18:08:43 by joivanau         ###   ########.fr       */
+/*   Updated: 2021/12/02 21:05:26 by joivanau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static char	*get_first_line(char *sbuf, char **line, int *error)
 {
-	int		i;
+	ssize_t		i;
 	char	*temp;
-	int		strlength;
+	ssize_t	strlength;
 
 	i = 0;
 	strlength = ft_strlen(sbuf);
@@ -43,14 +43,16 @@ static char	*get_first_line(char *sbuf, char **line, int *error)
 
 static char	*read_line(const int fd, char *sbuf, int *error)
 {
-	int		bytes_read;
-	char	*buf;
+	ssize_t		bytes_read;
+	char		*buf;
 
 	buf = (char *) ft_calloc(BUFF_SIZE + 1, sizeof(char));
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buf, BUFF_SIZE);
+		if (bytes_read <= 0)
+			break ;
 		buf[bytes_read] = '\0';
 		if (sbuf == NULL && buf != NULL)
 			sbuf = ft_strjoin(buf, "\0");
@@ -61,11 +63,8 @@ static char	*read_line(const int fd, char *sbuf, int *error)
 	}
 	ft_strdel(&buf);
 	if (bytes_read == -1)
-	{
-		*error = -1;
 		ft_strdel(&sbuf);
-		return (sbuf);
-	}
+	*error = bytes_read;
 	return (sbuf);
 }
 
