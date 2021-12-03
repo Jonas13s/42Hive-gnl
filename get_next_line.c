@@ -6,7 +6,7 @@
 /*   By: joivanau <joivanau@hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:05:39 by joivanau          #+#    #+#             */
-/*   Updated: 2021/12/02 21:05:26 by joivanau         ###   ########.fr       */
+/*   Updated: 2021/12/03 05:02:08 by joivanau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,28 @@
 static char	*get_first_line(char *sbuf, char **line, int *error)
 {
 	ssize_t		i;
-	char	*temp;
-	ssize_t	strlength;
+	char		*temp;
+	ssize_t		strlength;
 
 	i = 0;
 	strlength = ft_strlen(sbuf);
 	while (sbuf[i] != '\n' && sbuf[i] != '\0')
 		i++;
-	if (i > 0 && sbuf != NULL)
+	if (i > 0)
 	{
 		ft_strdel(line);
 		*line = ft_strsub(sbuf, 0, i);
+		*error = 1;
 	}
 	if (i + 1 <= strlength)
 	{
 		temp = ft_strsub(sbuf, i + 1, strlength - 1);
 		ft_strdel(&sbuf);
-		sbuf = ft_strupdate(temp, "\0");
+		sbuf = temp;
 		*error = 1;
 	}
 	if (i + 1 >= strlength)
 		ft_strdel(&sbuf);
-	if (i != 0)
-		*error = 1;
 	return (sbuf);
 }
 
@@ -54,10 +53,12 @@ static char	*read_line(const int fd, char *sbuf, int *error)
 		if (bytes_read <= 0)
 			break ;
 		buf[bytes_read] = '\0';
-		if (sbuf == NULL && buf != NULL)
-			sbuf = ft_strjoin(buf, "\0");
-		else
-			sbuf = ft_strupdate(sbuf, buf);
+		sbuf = ft_strupdate(sbuf, buf);
+		if (sbuf == NULL)
+		{
+			bytes_read = -1;
+			break ;
+		}
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
@@ -76,10 +77,14 @@ int	get_next_line(const int fd, char **line)
 	if (line == NULL || fd < 0 || BUFF_SIZE <= 0 || fd > MAX_FD)
 		return (-1);
 	*line = ft_strdup("");
+	if (!sbuf[fd])
+		sbuf[fd] = ft_strdup("");
+	if (!sbuf[fd])
+		return (-1);
 	error = 0;
 	sbuf[fd] = read_line(fd, sbuf[fd], &error);
 	if (error == -1 || sbuf[fd] == NULL)
-		return (error);
+		return (-1);
 	sbuf[fd] = get_first_line(sbuf[fd], line, &error);
 	return (error);
 }

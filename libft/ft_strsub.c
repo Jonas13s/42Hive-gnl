@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joivanau <joivanau@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: joivanau <joivanau@hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 16:32:44 by joivanau          #+#    #+#             */
-/*   Updated: 2021/11/22 15:01:38 by joivanau         ###   ########.fr       */
+/*   Updated: 2021/12/03 03:01:22 by joivanau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	size_t	i;
 	size_t	x;
 
-	x = 0;
 	if (!s)
 		return (NULL);
 	str = (char *) malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
+	x = 0;
 	i = start;
 	while (x < len)
 	{

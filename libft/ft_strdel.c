@@ -6,7 +6,7 @@
 /*   By: joivanau <joivanau@hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 13:43:37 by joivanau          #+#    #+#             */
-/*   Updated: 2021/11/28 00:10:50 by joivanau         ###   ########.fr       */
+/*   Updated: 2021/12/03 04:24:04 by joivanau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_strdel(char **as)
 {
-	if (!(as && *as))
+	if ((as == NULL && *as == NULL))
 		return ;
 	free(*as);
 	*as = NULL;

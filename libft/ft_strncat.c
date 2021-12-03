@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joivanau <joivanau@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: joivanau <joivanau@hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 14:39:52 by joivanau          #+#    #+#             */
-/*   Updated: 2021/11/11 14:20:56 by joivanau         ###   ########.fr       */
+/*   Updated: 2021/12/03 03:02:59 by joivanau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ char	*ft_strncat(char *d, const char *s, size_t len)
 
 	i = 0;
 	x = ft_strlen(d);
-	while (i < len)
+	while (i < len && s[i] != '\0')
 	{
-		if (s[i] != '\0')
-			d[x] = s[i];
-		if (s[i] == '\0')
-			break ;
+		d[x] = s[i];
 		i++;
 		x++;
 	}
