@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joivanau <joivanau@hive.fi>                +#+  +:+       +#+        */
+/*   By: joivanau <joivanau@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:05:39 by joivanau          #+#    #+#             */
-/*   Updated: 2021/12/03 05:02:08 by joivanau         ###   ########.fr       */
+/*   Updated: 2021/12/06 13:11:25 by joivanau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	get_next_line(const int fd, char **line)
 	static char	*sbuf[MAX_FD];
 	int			error;
 
-	if (line == NULL || fd < 0 || BUFF_SIZE <= 0 || fd > MAX_FD)
+	if (line == NULL || fd < 0 || BUFF_SIZE <= 0 || fd > MAX_FD \
+	|| fd == 1 || fd == 2)
 		return (-1);
 	*line = ft_strdup("");
 	if (!sbuf[fd])
@@ -82,6 +83,11 @@ int	get_next_line(const int fd, char **line)
 	if (!sbuf[fd])
 		return (-1);
 	error = 0;
+	if (ft_strchr(sbuf[fd], '\n'))
+	{
+		sbuf[fd] = get_first_line(sbuf[fd], line, &error);
+		return (error);
+	}
 	sbuf[fd] = read_line(fd, sbuf[fd], &error);
 	if (error == -1 || sbuf[fd] == NULL)
 		return (-1);
